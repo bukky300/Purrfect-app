@@ -10,5 +10,18 @@ export async function fetchCats() {
     "https://api.thecatapi.com/v1/breeds",
     config
   );
-  console.log(response.data);
+
+  //   console.log(response.data);
+
+  const items = [];
+
+  response.data.map((item) =>
+    items.push({
+      id: item.id,
+      name: item.name,
+      imageUrl: item.image?.url,
+    })
+  );
+
+  return items;
 }
