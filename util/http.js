@@ -11,8 +11,6 @@ export async function fetchCats() {
     config
   );
 
-  //   console.log(response.data);
-
   const items = [];
 
   response.data.map((item) =>

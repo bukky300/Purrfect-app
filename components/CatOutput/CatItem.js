@@ -7,7 +7,11 @@ function CatItem({ name, imageUrl }) {
       <View style={styles.innerContainer}>
         <View style={styles.imageContainer}>
           {imageUrl ? (
-            <Image source={{ uri: imageUrl }} style={styles.image} />
+            <Image
+              resizeMode="cover"
+              source={{ uri: imageUrl }}
+              style={styles.image}
+            />
           ) : (
             <Text>No image </Text>
           )}
@@ -16,7 +20,11 @@ function CatItem({ name, imageUrl }) {
           <Text style={styles.text}>{name}</Text>
         </View>
       </View>
-      <MaterialCommunityIcons name="cards-heart-outline" size={18} />
+      <MaterialCommunityIcons
+        name="cards-heart-outline"
+        color="gray"
+        size={18}
+      />
     </View>
   );
 }

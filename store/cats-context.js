@@ -18,7 +18,6 @@ function CatsContextProvider({ children }) {
   const [catState, dispatch] = useReducer(catReducer, []);
 
   function setCatItems(catItems) {
-    console.log(catItems);
     dispatch({ type: "SET", payload: catItems });
   }
 
