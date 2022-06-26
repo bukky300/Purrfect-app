@@ -1,31 +1,45 @@
-import { View, Image, Text, StyleSheet } from "react-native";
+import { View, Image, Text, StyleSheet, Pressable } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useContext } from "react";
+import { FavoritesContext } from "../../store/favorites-context";
 
-function CatItem({ name, imageUrl }) {
+function CatItem({ id, name, imageUrl }) {
+  const favoritesCtx = useContext(FavoritesContext);
+
+  const catIsFavorite = favoritesCtx.ids.includes(id);
+
+  function changeFavoriteStatusHandler() {
+    if (catIsFavorite) {
+      favoritesCtx.removeFavorite(id);
+    } else {
+      favoritesCtx.addFavorite(id);
+    }
+  }
   return (
-    <View style={styles.CatItem}>
-      <View style={styles.innerContainer}>
-        <View style={styles.imageContainer}>
-          {imageUrl ? (
-            <Image
-              resizeMode="cover"
-              source={{ uri: imageUrl }}
-              style={styles.image}
-            />
-          ) : (
-            <Text>No image </Text>
-          )}
+    <Pressable
+      onPress={changeFavoriteStatusHandler}
+      android_ripple={{ color: "#ccc" }}
+    >
+      <View style={styles.CatItem}>
+        <View style={styles.innerContainer}>
+          <View style={styles.imageContainer}>
+            {imageUrl ? (
+              <Image source={{ uri: imageUrl }} style={styles.image} />
+            ) : (
+              <Text>No image </Text>
+            )}
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.text}>{name}</Text>
+          </View>
         </View>
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>{name}</Text>
-        </View>
+        <MaterialCommunityIcons
+          name={catIsFavorite ? "cards-heart" : "cards-heart-outline"}
+          color={catIsFavorite ? "red" : "gray"}
+          size={18}
+        />
       </View>
-      <MaterialCommunityIcons
-        name="cards-heart-outline"
-        color="gray"
-        size={18}
-      />
-    </View>
+    </Pressable>
   );
 }
 

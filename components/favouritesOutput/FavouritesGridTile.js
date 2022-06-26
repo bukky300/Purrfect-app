@@ -1,16 +1,32 @@
-import { StyleSheet, View, Image, Text } from "react-native";
+import { useContext } from "react";
+import { StyleSheet, View, Image, Text, Pressable } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { FavoritesContext } from "../../store/favorites-context";
 
-function FavouritesGridTile({ name, imageUrl }) {
+function FavouritesGridTile({ id, name, imageUrl }) {
+  const favoritesCtx = useContext(FavoritesContext);
+
+  const catIsFavorite = favoritesCtx.ids.includes(id);
+
+  function changeFavoriteStatusHandler() {
+    if (catIsFavorite) {
+      favoritesCtx.removeFavorite(id);
+    } else {
+      favoritesCtx.addFavorite(id);
+    }
+  }
+
   return (
     <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image source={{ uri: imageUrl }} style={styles.image} />
-      </View>
-      <View style={styles.detailsContainer}>
-        <Text style={styles.text}>{name}</Text>
-        <MaterialCommunityIcons name="cards-heart" color="red" size={18} />
-      </View>
+      <Pressable onPress={changeFavoriteStatusHandler}>
+        <View style={styles.imageContainer}>
+          <Image source={{ uri: imageUrl }} style={styles.image} />
+        </View>
+        <View style={styles.detailsContainer}>
+          <Text style={styles.text}>{name}</Text>
+          <MaterialCommunityIcons name="cards-heart" color="red" size={18} />
+        </View>
+      </Pressable>
     </View>
   );
 }
@@ -34,7 +50,7 @@ const styles = StyleSheet.create({
   detailsContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingTop: 5,
+    paddingTop: 10,
   },
   text: {
     fontFamily: "Inter_400Regular",

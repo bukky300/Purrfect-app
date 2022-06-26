@@ -21,5 +21,7 @@ export async function fetchCats() {
     })
   );
 
-  return items;
+  const cats = items.slice(0, 20);
+
+  return cats;
 }

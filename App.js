@@ -16,6 +16,7 @@ import AllPets from "./screens/AllPets";
 import Favourites from "./screens/Favourites";
 
 import CatsContextProvider, { CatsContext } from "./store/cats-context";
+import FavoritesContextProvider from "./store/favorites-context";
 
 const BottomTabs = createBottomTabNavigator();
 
@@ -63,56 +64,62 @@ export default function App() {
     <>
       <StatusBar style="auto" />
       <CatsContextProvider>
-        <NavigationContainer onReady={onLayout}>
-          <BottomTabs.Navigator
-            screenOptions={{
-              tabBarStyle: {
-                backgroundColor: "#ffffff",
-                paddingHorizontal: 32,
-                height: 100,
-              },
-              tabBarLabelStyle: {
-                fontFamily: "Inter_600SemiBold",
-                marginBottom: 24,
-              },
-              tabBarIconStyle: { marginTop: 16 },
-              tabBarActiveTintColor: "#212227",
-              headerStyle: { height: 80 },
-              headerTitleAlign: "left",
-              headerTitleStyle: {
-                fontFamily: "Inter_600SemiBold",
-                paddingLeft: 8,
-              },
-            }}
-          >
-            <BottomTabs.Screen
-              name="AllPets"
-              component={AllPets}
-              options={{
-                tabBarLabel: "All cats",
-                tabBarIcon: ({ color, size }) => (
-                  <MaterialCommunityIcons name="cat" color={color} size={32} />
-                ),
-                headerTitle: "All Cats",
+        <FavoritesContextProvider>
+          <NavigationContainer onReady={onLayout}>
+            <BottomTabs.Navigator
+              screenOptions={{
+                tabBarStyle: {
+                  backgroundColor: "#ffffff",
+                  paddingHorizontal: 32,
+                  height: 100,
+                },
+                tabBarLabelStyle: {
+                  fontFamily: "Inter_600SemiBold",
+                  marginBottom: 24,
+                },
+                tabBarIconStyle: { marginTop: 16 },
+                tabBarActiveTintColor: "#212227",
+                headerStyle: { height: 80 },
+                headerTitleAlign: "left",
+                headerTitleStyle: {
+                  fontFamily: "Inter_600SemiBold",
+                  paddingLeft: 8,
+                },
               }}
-            />
-            <BottomTabs.Screen
-              name="Favourites"
-              component={Favourites}
-              options={{
-                tabBarLabel: "Cats I like",
-                tabBarIcon: ({ color, size }) => (
-                  <MaterialCommunityIcons
-                    name="cards-heart"
-                    color={color}
-                    size={32}
-                  />
-                ),
-                headerTitle: "Cats I Like",
-              }}
-            />
-          </BottomTabs.Navigator>
-        </NavigationContainer>
+            >
+              <BottomTabs.Screen
+                name="AllPets"
+                component={AllPets}
+                options={{
+                  tabBarLabel: "All cats",
+                  tabBarIcon: ({ color, size }) => (
+                    <MaterialCommunityIcons
+                      name="cat"
+                      color={color}
+                      size={32}
+                    />
+                  ),
+                  headerTitle: "All Cats",
+                }}
+              />
+              <BottomTabs.Screen
+                name="Favourites"
+                component={Favourites}
+                options={{
+                  tabBarLabel: "Cats I like",
+                  tabBarIcon: ({ color, size }) => (
+                    <MaterialCommunityIcons
+                      name="cards-heart"
+                      color={color}
+                      size={32}
+                    />
+                  ),
+                  headerTitle: "Cats I Like",
+                }}
+              />
+            </BottomTabs.Navigator>
+          </NavigationContainer>
+        </FavoritesContextProvider>
       </CatsContextProvider>
     </>
   );
