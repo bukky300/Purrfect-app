@@ -15,18 +15,13 @@ import * as SplashScreen from "expo-splash-screen";
 import AllPets from "./screens/AllPets";
 import Favourites from "./screens/Favourites";
 
-import CatsContextProvider, { CatsContext } from "./store/cats-context";
+import CatsContextProvider from "./store/cats-context";
 import FavoritesContextProvider from "./store/favorites-context";
 
 const BottomTabs = createBottomTabNavigator();
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
-  const catCtx = useContext(CatsContext);
-
-  // const [fontsLoaded] = useFonts({
-  //   Inter_400Regular,
-  // });
 
   useEffect(() => {
     async function prepare() {
