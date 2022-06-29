@@ -1,4 +1,4 @@
-import { View, FlatList, StyleSheet } from "react-native";
+import { View, FlatList } from "react-native";
 import CatItem from "./CatItem";
 
 function CatList({ items }) {

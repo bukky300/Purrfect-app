@@ -68,6 +68,7 @@ export default function App() {
                   paddingHorizontal: 32,
                   height: 100,
                 },
+                tabBarLabelPosition: "below-icon",
                 tabBarLabelStyle: {
                   fontFamily: "Inter_600SemiBold",
                   marginBottom: 24,
