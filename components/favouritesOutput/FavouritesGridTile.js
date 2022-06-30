@@ -11,8 +11,6 @@ function FavouritesGridTile({ id, name, imageUrl }) {
   function changeFavoriteStatusHandler() {
     if (catIsFavorite) {
       favoritesCtx.removeFavorite(id);
-    } else {
-      favoritesCtx.addFavorite(id);
     }
   }
 

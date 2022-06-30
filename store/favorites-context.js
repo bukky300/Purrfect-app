@@ -1,26 +1,48 @@
-import { createContext, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { createContext, useReducer } from "react";
 
 export const FavoritesContext = createContext({
   ids: [],
+  setFavorites: (ids) => {},
   addFavorite: (id) => {},
   removeFavorite: (id) => {},
 });
 
+function favoritesReducer(state, action) {
+  switch (action.type) {
+    case "SET":
+      return action.payload;
+    case "ADD":
+      const addedId = [...state, action.payload];
+      AsyncStorage.setItem("favorites", addedId.toString());
+      return addedId;
+    case "REMOVE":
+      const removedId = state.filter((catId) => catId !== action.payload);
+      AsyncStorage.setItem("favorites", removedId.toString());
+      return removedId;
+    default:
+      return state;
+  }
+}
+
 function FavoritesContextProvider({ children }) {
-  const [favoriteMealIds, setFavoriteMealIds] = useState([]);
+  const [faveCatsState, dispatch] = useReducer(favoritesReducer, []);
+
+  function setFavorites(ids) {
+    dispatch({ type: "SET", payload: ids });
+  }
 
   function addFavorite(id) {
-    setFavoriteMealIds((currentFavIds) => [...currentFavIds, id]);
+    dispatch({ type: "ADD", payload: id });
   }
 
   function removeFavorite(id) {
-    setFavoriteMealIds((currentFavIds) =>
-      currentFavIds.filter((mealId) => mealId !== id)
-    );
+    dispatch({ type: "REMOVE", payload: id });
   }
 
   const value = {
-    ids: favoriteMealIds,
+    ids: faveCatsState,
+    setFavorites: setFavorites,
     addFavorite: addFavorite,
     removeFavorite: removeFavorite,
   };

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { FlatList, StyleSheet, View, Text } from "react-native";
 
 import { CatsContext } from "../store/cats-context";

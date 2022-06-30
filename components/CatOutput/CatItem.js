@@ -1,6 +1,7 @@
 import { View, Image, Text, StyleSheet, Pressable } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useContext } from "react";
+
 import { FavoritesContext } from "../../store/favorites-context";
 
 function CatItem({ id, name, imageUrl }) {
